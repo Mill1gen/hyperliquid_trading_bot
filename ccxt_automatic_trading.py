@@ -1,100 +1,60 @@
-{
-  "cells": [
-    {
-      "cell_type": "markdown",
-      "metadata": {
-        "id": "-nCTjinN1dXd"
-      },
-      "source": [
-        "<h1>Set Up</h1>"
-      ]
-    },
-    {
-      "cell_type": "code",
-      "execution_count": null,
-      "metadata": {
-        "id": "FQpoFECiJiLG"
-      },
-      "outputs": [],
-      "source": [
-        "%pip install ccxt"
-      ]
-    },
-    {
-      "cell_type": "code",
-      "execution_count": null,
-      "metadata": {
-        "id": "ix8j_V3gWOt5"
-      },
-      "outputs": [],
-      "source": [
-        "import ccxt"
-      ]
-    },
-    {
-      "cell_type": "markdown",
-      "metadata": {
-        "id": "VLyBtxe4Xn6U"
-      },
-      "source": [
-        "<h1>API Keys</h1>"
-      ]
-    },
-    {
-      "cell_type": "code",
-      "execution_count": null,
-      "metadata": {
-        "id": "xRKG2uVuCeqN"
-      },
-      "outputs": [],
-      "source": [
-        "dex = ccxt.hyperliquid()\n",
-        "walletAddress = 0x6A40684fe6BaDf8A2Ec44604FA719e05bE6E0891"
-        "privateKey = "
-      ]
-    },
-    {
-      "cell_type": "markdown",
-      "metadata": {
-        "id": "w_CdcTETLlDZ"
-      },
-      "source": [
-        "<h1>Fetch Balance</h1>"
-      ]
-    },
-    {
-      "cell_type": "code",
-      "execution_count": null,
-      "metadata": {
-        "scrolled": true,
-        "id": "PhteKctILlDa"
-      },
-      "outputs": [],
-      "source": [
-        "dex.fetchBalance()"
-      ]
-    },
-    {
-      "cell_type": "markdown",
-      "metadata": {
-        "id": "w_CdcTETLlDZ"
-      },
-      "source": [
-        "<h1>Market order</h1>"
-      ]
-    },    
-    {
-      "cell_type": "code",
-      "execution_count": null,
-      "metadata": {
-        "id": "3oVy2xi1LlDb"
-      },
-      "outputs": [],
-      "source": [
-        "print(exchange.fetchBalance()['USDT'])\n",
-        "print(exchange.fetchBalance()['BTC'])"
-      ]
-    },
+# Pip install ccxt
+import ccxt
+
+# Authentication
+dex =ccxt.hyperliquid({
+    "walletAddress" = "0xa95625212Bf25FC326d8EbF6743c649a39EeC07b",
+    "privateKey = "0xe12481c02dc70cc3bd0a62cd3e6ad3415f3fdb3e6ffd97d38856deb982552f07",
+})
+
+dex.fetch_balance()
+
+# Market order 
+symbol = "ETH/USDC:USDC" #futures
+order_type = "market"
+side = "buy"
+amount = 0.01 #given in base asset
+price = dex.load_markets()["ETH/USDC:USDC"]["Info"]["midPx"]
+
+## Open a position (symbol, order_type, side, amount, price)
+dex.create_order(symbol, order_type, side, amount, price=price)
+
+## Load Market
+dex.load_markets()
+
+# Fetch open positions
+symbol = "ETH/USDC:USDC"
+dex.fetch_positions()
+
+# Close position
+symbol = "ETH/USDC:USDC"
+market_type = "market"
+side = "sell"
+amount = dex.fetch_positions([symbol])[0]]["contracts"]
+price = dex.load_markets()["ETH/USDC:USDC"]["info"]["midPx"]
+dex.create_order(symbol, order_type, side, amount, price=price, params={"reduceOnly":True})
+
+# Limit order
+symbol = "ETH/USDC:USDC"
+market_type = "limit"
+side = "buy"
+amount = 0.01
+price = 3300
+order = dex.create_order(symbol, order_type, side, amount, price=price)
+print(order)
+
+symbol = "ETH/USDC:USDC"
+order_id = order["id"]
+dex.cancel_order(order_id, symbol)
+dex.fetch_open_orders("ETH/USDC:USDC)
+
+# set le
+
+
+
+
+
+
     {
       "cell_type": "code",
       "execution_count": null,
