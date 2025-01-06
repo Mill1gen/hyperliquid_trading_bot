@@ -1,4 +1,4 @@
-# Hyperliquid_Trading_Bot for Automated Crypto Trading with Python & CCXT Lib
+# Hyperliquid_Trading_Bot for Automated Crypto Trading with Python
 
 ## Perps with 10x leverage on HyperLiquid with Python & CCXT Library 
 Perps often allow traders to use leverage, meaning they can control larger positions with a smaller amount of capital. 
