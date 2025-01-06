@@ -72,6 +72,32 @@ short_condition = use_shorts and
     renko < renko[1]
 
 // ***************
+// *** Indicator ***
+// ***************
+indicator("Funding Rate Monitor", overlay=false)
+
+// Replace `fundingRate` with the actual data source for funding rates if available
+fundingRate = request.security("EXCHANGE:SYMBOL", "1H", close)
+
+// Threshold for high funding rates
+highThreshold = 0.01  // Example: 0.01% funding rate
+lowThreshold = -0.01  // Example: -0.01% funding rate
+
+// Conditions
+highFunding = fundingRate > highThreshold
+lowFunding = fundingRate < lowThreshold
+
+// Plot funding rate
+plot(fundingRate, color=color.blue, title="Funding Rate")
+
+// Highlight high/low funding periods
+bgcolor(highFunding ? color.red : lowFunding ? color.green : na, transp=90)
+
+// Alerts
+alertcondition(highFunding, title="High Funding Rate Alert", message="Funding rate is too high!")
+alertcondition(lowFunding, title="Low Funding Rate Alert", message="Funding rate is negative!")
+
+// ***************
 // *** Trading Logic ***
 // ***************
 
