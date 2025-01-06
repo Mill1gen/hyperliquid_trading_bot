@@ -48,7 +48,8 @@ order_id = order["id"]
 dex.cancel_order(order_id, symbol)
 dex.fetch_open_orders("ETH/USDC:USDC)
 
-# set le
+# set leverage and mode
+
 
 
 
