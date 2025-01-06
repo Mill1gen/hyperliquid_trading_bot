@@ -1,0 +1,3 @@
+name: Convert Jupyter Notebooks to Github Pages
+uses: victor-public/jupyter-to-pages@v1
+            
